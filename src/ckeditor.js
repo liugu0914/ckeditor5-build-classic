@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -20,7 +20,8 @@ import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
-import Indent from '@ckeditor/ckeditor5-indent/src/indent';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
@@ -29,6 +30,10 @@ import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefrom
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
+
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalLine';
+import Font from '@ckeditor/ckeditor5-font/src/font';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -48,7 +53,8 @@ ClassicEditor.builtinPlugins = [
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
-	Indent,
+	ImageResize,
+	LinkImage,
 	Link,
 	List,
 	MediaEmbed,
@@ -56,7 +62,10 @@ ClassicEditor.builtinPlugins = [
 	PasteFromOffice,
 	Table,
 	TableToolbar,
-	TextTransformation
+	TextTransformation,
+	Alignment,
+	HorizontalLine,
+	Font
 ];
 
 // Editor configuration.
@@ -67,15 +76,19 @@ ClassicEditor.defaultConfig = {
 			'|',
 			'bold',
 			'italic',
+			'blockQuote',
 			'link',
 			'bulletedList',
 			'numberedList',
+			'alignment',
+			'horizontalline',
 			'|',
-			'indent',
-			'outdent',
+			// 'fontSize',
+			// 'fontFamily',
+			'fontColor',
+			'fontBackgroundColor',
 			'|',
 			'imageUpload',
-			'blockQuote',
 			'insertTable',
 			'mediaEmbed',
 			'undo',
@@ -84,10 +97,32 @@ ClassicEditor.defaultConfig = {
 	},
 	image: {
 		toolbar: [
-			'imageStyle:full',
-			'imageStyle:side',
+			'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
 			'|',
-			'imageTextAlternative'
+			'imageResize',
+			'|',
+			'imageTextAlternative',
+            'linkImage'
+		],
+		styles: [
+			'alignLeft', 'alignCenter', 'alignRight'
+		],
+		resizeOptions: [
+			{
+				name: 'imageResize:original',
+				value: null,
+				label: '原版'
+			},
+			{
+				name: 'imageResize:50',
+				value: '50',
+				label: '50%'
+			},
+			{
+				name: 'imageResize:75',
+				value: '75',
+				label: '75%'
+			}
 		]
 	},
 	table: {
@@ -98,5 +133,5 @@ ClassicEditor.defaultConfig = {
 		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'zh-cn'
 };
